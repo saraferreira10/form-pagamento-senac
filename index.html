@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;800&display=swap"
+        rel="stylesheet">
+    <title>Pagamento</title>
+</head>
+
+<body>
+    <main>
+        <div class="pagamento">
+            <h1>Pagamento</h1>
+            <div>
+                <input type="number" step="any" name="valor" id="valor" placeholder="Valor" required>
+            </div>
+            <div class="formaDePagamento">
+                <div style="width: auto; display: flex; flex-direction: row; gap: 10px;">
+                    <input type="radio" name="formato" id="pix" checked>
+                    <label for="pix">PIX</label>
+                </div>
+                <div style="width: auto; display: flex; flex-direction: row; gap: 10px;">
+                    <input type="radio" name="formato" id="cartao">
+                    <label for="cartao">Cartão de crédito</label>
+                </div>
+            </div>
+            <div>
+                <button id="btnDados" onclick="informarDados()">Informar dados</button>
+            </div>
+        </div>
+
+        <form id="formPix" onsubmit="return validarFormulario('formPix')">
+            <div class="divPix">
+                <h3>| Pix</h3>
+                <div>
+                    <label for="cpf" style="font-size: 12px;">CPF</label>
+                    <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required>
+                </div>
+                <div>
+                    <button class="btnPagar">Pagar</button>
+                </div>
+            </div>
+        </form>
+
+        <form id="formCartao" onsubmit="return validarFormulario('formCartao')">
+            <div class="divCartao">
+                <h3>| Cartão de crédito</h3>
+                <div style="display: flex; align-items: center; justify-content:space-between; gap: 2px;"
+                    id="divCartao">
+                    <input type="text" name="numero" id="numero" placeholder="Número" required onblur="mostrarCartao()">
+                    <img src="img/cartao-nao-encontrado.png" alt="Bandeira do cartão"
+                        style="padding: 5px; background-color: #181818; border-radius: 5px;" height="30px"
+                        id="imgCartao">
+                </div>
+                <div>
+                    <input type="text" name="titular" id="titular" placeholder="Titular" required>
+                </div>
+                <div>
+                    <input type="text" name="codigo" id="codigo" placeholder="Código de Segurança" required>
+                </div>
+                <div>
+                    <label for="vencimento">Vencimento</label>
+                    <input type="date" name="vencimento" id="vencimento" required>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <div>
+                        <label for="parcelas">Parcelas</label>
+                        <select id="parcelas" onchange="calcularParcelas()">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div>
+                        <ul id="listaPagamento"></ul>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btnPagar">Pagar</button>
+                </div>
+            </div>
+        </form>
+
+        <p id="paragrafoTotal">Total: R$ <span id="total">0,00</span></p>
+    </main>
+</body>
+
+</html>
